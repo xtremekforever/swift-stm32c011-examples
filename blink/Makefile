@@ -17,8 +17,15 @@ SWIFT_FLAGS := -target $(TARGET) -Osize -import-bridging-header $(SRCROOT)/Bridg
 CLANG_EXEC := clang
 CLANG_FLAGS := -target $(TARGET) -Os $(CPU_FLAGS) $(COMMON_FLAGS)
 
+# /usr/bin/ld.gold: fatal error: .build/blink.o: unsupported ELF machine number 40
+#LD_EXEC := $(CLANG_EXEC)
+#LD_FLAGS := --target=$(TARGET) -nostdlib -static -Wl,-gc-sections -Wl,-T,$(SRCROOT)/STM32C011F6.ld
+
+# ld.lld: error: undefined symbol: __aeabi_lmul
 #LD_EXEC := $(CLANG_EXEC)
 #LD_FLAGS := --target=$(TARGET) -fuse-ld=lld -nostdlib -static -Wl,-gc-sections -Wl,-T,$(SRCROOT)/STM32C011F6.ld
+
+# This works fine
 LD_EXEC := arm-none-eabi-gcc
 LD_FLAGS := -Wl,--gc-sections -T$(SRCROOT)/STM32C011F6.ld $(CPU_FLAGS) $(COMMON_FLAGS) --specs=nano.specs --specs=nosys.specs
 
