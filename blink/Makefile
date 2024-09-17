@@ -20,10 +20,12 @@ SWIFT_FLAGS := -target $(TARGET) -Osize -import-bridging-header $(SRCROOT)/Bridg
 CLANG_EXEC := clang
 CLANG_FLAGS := -target $(TARGET) -Os $(CPU_FLAGS) $(COMMON_FLAGS)
 
-# Uses the precompiled libaeabi-cortexm0.a file in libs/ for linking
+# We can use the thumb/nofp version of libgcc.a to link with clang
+# Unfortunately clang doesn't know where to find it by default so we need
+# to provide the path manually.
 LD_EXEC := $(CLANG_EXEC)
 LD_FLAGS := --target=$(TARGET) $(CPU_FLAGS) $(COMMON_FLAGS) -fuse-ld=lld \
-	-nostdlib -laeabi-cortexm0 -L./lib/ \
+	-nostdlib -lgcc -L/lib/gcc/arm-none-eabi/10.3.1/thumb/nofp/ \
 	-static -Wl,-gc-sections -Wl,-T,$(SRCROOT)/STM32C011F6.ld
 
 # This works fine as well
