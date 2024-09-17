@@ -12,22 +12,23 @@ CPU_FLAGS := -mcpu=cortex-m0plus -mthumb -mfloat-abi=soft
 COMMON_FLAGS := -ffreestanding -fdata-sections -ffunction-sections -fno-builtin -fno-common -fshort-enums -std=gnu11
 
 SWIFT_EXEC := swiftc
-SWIFT_FLAGS := -target $(TARGET) -Osize -import-bridging-header $(SRCROOT)/BridgingHeader.h -wmo -enable-experimental-feature Embedded -Xcc -ffreestanding -Xfrontend -function-sections -Xcc -mcpu=cortex-m0plus -Xcc -mfloat-abi=soft -Xcc -mthumb -Xcc -fshort-enums
+SWIFT_FLAGS := -target $(TARGET) -Osize -import-bridging-header $(SRCROOT)/BridgingHeader.h \
+	-wmo -enable-experimental-feature Embedded -Xcc -ffreestanding \
+	-Xfrontend -function-sections \
+	-Xcc -mcpu=cortex-m0plus -Xcc -mfloat-abi=soft -Xcc -mthumb -Xcc -fshort-enums
 
 CLANG_EXEC := clang
 CLANG_FLAGS := -target $(TARGET) -Os $(CPU_FLAGS) $(COMMON_FLAGS)
 
-# /usr/bin/ld.gold: fatal error: .build/blink.o: unsupported ELF machine number 40
-#LD_EXEC := $(CLANG_EXEC)
-#LD_FLAGS := --target=$(TARGET) -nostdlib -static -Wl,-gc-sections -Wl,-T,$(SRCROOT)/STM32C011F6.ld
+# Uses the precompiled libaeabi-cortexm0.a file in libs/ for linking
+LD_EXEC := $(CLANG_EXEC)
+LD_FLAGS := --target=$(TARGET) $(CPU_FLAGS) $(COMMON_FLAGS) -fuse-ld=lld \
+	-nostdlib -laeabi-cortexm0 -L./lib/ \
+	-static -Wl,-gc-sections -Wl,-T,$(SRCROOT)/STM32C011F6.ld
 
-# ld.lld: error: undefined symbol: __aeabi_lmul
-#LD_EXEC := $(CLANG_EXEC)
-#LD_FLAGS := --target=$(TARGET) -fuse-ld=lld -nostdlib -static -Wl,-gc-sections -Wl,-T,$(SRCROOT)/STM32C011F6.ld
-
-# This works fine
-LD_EXEC := arm-none-eabi-gcc
-LD_FLAGS := -Wl,--gc-sections -T$(SRCROOT)/STM32C011F6.ld $(CPU_FLAGS) $(COMMON_FLAGS) --specs=nano.specs --specs=nosys.specs
+# This works fine as well
+#LD_EXEC := arm-none-eabi-gcc
+#LD_FLAGS := -Wl,--gc-sections -T$(SRCROOT)/STM32C011F6.ld $(CPU_FLAGS) $(COMMON_FLAGS) --specs=nano.specs --specs=nosys.specs
 
 .PHONY: all
 all: $(BUILDROOT)/blink.bin $(BUILDROOT)/blink.lst $(BUILDROOT)/blink.map
