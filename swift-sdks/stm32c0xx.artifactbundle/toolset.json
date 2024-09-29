@@ -1,0 +1,19 @@
+{
+  "cCompiler": {
+    "extraCLIOptions": [
+      "-mcpu=cortex-m0plus",
+      "-mthumb",
+      "-mfloat-abi=soft",
+      "-ffreestanding",
+      "-ffunction-sections",
+      "-fshort-enums"
+    ]
+  },
+  "swiftCompiler" : {
+    "extraCLIOptions" : [
+      "-Osize",
+      "-Xfrontend", "-function-sections"
+    ]
+  },
+  "schemaVersion" : "1.0"
+}

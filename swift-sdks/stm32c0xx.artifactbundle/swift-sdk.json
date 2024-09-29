@@ -1,0 +1,9 @@
+{
+  "targetTriples" : {
+    "armv6m-none-none-eabi" : {
+      "sdkRootPath" : ".",
+      "toolsetPaths" : [ "toolset.json" ]
+    }
+  },
+  "schemaVersion" : "4.0"
+}
