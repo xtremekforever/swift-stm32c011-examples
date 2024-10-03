@@ -46,6 +46,10 @@ bin: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	$(OBJCOPY) -O binary $^ $(BUILDROOT)/$(OUTPUT_NAME).bin
 	ls -al $(BUILDROOT)/$(OUTPUT_NAME).bin
 
+flash:
+	@echo "Flashing STM32 at address 0x8000000..."
+	@st-flash write $(BUILDROOT)/$(OUTPUT_NAME).bin 0x8000000
+
 clean:
 	@echo "cleaning..."
 	@swift package clean
