@@ -1,0 +1,52 @@
+{
+    "name": "swift-stm32c011-examples",
+    "image": "swift:6.0.1-jammy",
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": "false",
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000",
+            "upgradePackages": "false"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "os-provided",
+            "ppa": "false"
+        },
+        "ghcr.io/meaningful-ooo/devcontainer-features/fish:1": {
+            "fisher": true
+        }
+    },
+    "runArgs": [
+        "--cap-add=SYS_PTRACE",
+        "--security-opt",
+        "seccomp=unconfined"
+    ],
+    // Configure tool-specific properties.
+    "customizations": {
+        // Configure properties specific to VS Code.
+        "vscode": {
+            // Set *default* container specific settings.json values on container create.
+            "settings": {
+                "lldb.library": "/usr/lib/liblldb.so"
+            },
+            // Add the IDs of extensions you want installed when the container is created.
+            "extensions": [
+                "sswg.swift-lang",
+                "dan-c-underwood.arm",
+                "ms-vscode.cpptools",
+                "chiehyu.vscode-astyle",
+                "trond-snekvik.gnu-mapfiles",
+                "ms-vscode.hexeditor",
+                "keroc.hex-fmt",
+                "ZixuanWang.linkerscript",
+                "eamodio.gitlens"
+            ]
+        }
+    },
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y make gcc-arm-none-eabi stlink-tools",
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "vscode"
+}

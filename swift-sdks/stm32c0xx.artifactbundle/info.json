@@ -1,17 +1,14 @@
 {
-  "artifacts" : {
-    "stm32c0xx" : {
-      "version" : "0.0.1",
-      "type" : "swiftSDK",
-      "variants" : [
+  "artifacts": {
+    "stm32c0xx": {
+      "version": "0.0.1",
+      "type": "swiftSDK",
+      "variants": [
         {
-          "supportedTriples" : [
-            "x86_64-unknown-linux-gnu"
-          ],
-          "path" : "."
+          "path": "."
         }
       ]
     }
   },
-  "schemaVersion" : "1.0"
+  "schemaVersion": "1.0"
 }
