@@ -14,9 +14,11 @@ SWIFT_BUILD := swift build
 
 OBJCOPY  = arm-none-eabi-objcopy
 OBJDUMP  = arm-none-eabi-objdump
+SIZE     = arm-none-eabi-size
+DEMANGLE = swift demangle
 
-.PHONY: all build map lst bin clean
-all: build lst map bin
+.PHONY: all build map lst size bin flash clean
+all: build lst map size bin
 build:
 	@echo "compiling..."
 	swift build \
@@ -39,7 +41,12 @@ lst: $(BUILDROOT)/$(OUTPUT_NAME).elf
 
 map: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting map file..."
-	$(OBJDUMP) -t $^ > $(BUILDROOT)/$(OUTPUT_NAME).map
+	$(OBJDUMP) -d $^ | $(DEMANGLE) > $(BUILDROOT)/$(OUTPUT_NAME).map
+
+size: $(BUILDROOT)/$(OUTPUT_NAME).elf
+	@echo "Extracting & printing sizes..."
+	$(SIZE) $^ -A > $(BUILDROOT)/$(OUTPUT_NAME).size
+	$(SIZE) $^
 
 bin: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting bin file..."
