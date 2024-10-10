@@ -5,7 +5,20 @@ In particular, these demos are built for the [STM32C0116-DK](https://www.st.com/
 
 ## Prerequisites
 
-All of these examples are built under a Ubuntu host (20.04 or later) and as such are made to work with the `arm-none-eabi` tools that are available in the package repositories. To compile these projects, an installation of the Swift 6.0 toolchain or later is required. Then, the following packages should be installed:
+All of these examples can be built under macOS or Linux (Ubuntu) using a Swift 6.0.0 toolchain or later.
+They are made to work with the `arm-none-eabi` that are available for cross-compiling to ARM.
+
+### macOS
+
+Install the following tools with homebrew:
+
+```bash
+brew install gcc-arm-embedded stlink
+```
+
+### Linux
+
+On a Ubuntu host (20.04-24.04), install the following dependencies:
 
 ```bash
 sudo apt install build-essential gcc-arm-none-eabi stlink-tools
