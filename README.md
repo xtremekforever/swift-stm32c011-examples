@@ -24,6 +24,12 @@ On a Ubuntu host (20.04-24.04), install the following dependencies:
 sudo apt install build-essential gcc-arm-none-eabi stlink-tools
 ```
 
+For RHEL/Fedora, install the following dependencies:
+
+```bash
+sudo dnf install make arm-none-eabi-gcc-cs arm-none-eabi-newlib stlink
+```
+
 ## Compiling
 
 Each project can be built using the `make` command. Also, for each project, build artifacts are found in the `.build` subdirectory, which will include *.elf, *.map, *.lst, and *.bin files.
