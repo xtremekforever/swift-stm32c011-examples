@@ -25,7 +25,7 @@ build:
 		--configuration release \
 		--swift-sdks-path ../swift-sdks \
 		--swift-sdk stm32c0xx \
-		--verbose
+		$(EXTRA_FLAGS)
 
 	@echo "linking..."
 	arm-none-eabi-gcc $(BUILDROOT)/libApplication.a -o $(BUILDROOT)/$(OUTPUT_NAME).elf \
@@ -41,17 +41,17 @@ lst: $(BUILDROOT)/$(OUTPUT_NAME).elf
 
 map: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting map file..."
-	$(OBJDUMP) -d $^ | $(DEMANGLE) > $(BUILDROOT)/$(OUTPUT_NAME).map
+	$(OBJDUMP) -t $^ | $(DEMANGLE) > $(BUILDROOT)/$(OUTPUT_NAME).map
 
 size: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting & printing sizes..."
 	$(SIZE) $^ -A > $(BUILDROOT)/$(OUTPUT_NAME).size
-	$(SIZE) $^
+	@$(SIZE) $^
 
 bin: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting bin file..."
 	$(OBJCOPY) -O binary $^ $(BUILDROOT)/$(OUTPUT_NAME).bin
-	ls -al $(BUILDROOT)/$(OUTPUT_NAME).bin
+	@ls -al $(BUILDROOT)/$(OUTPUT_NAME).bin
 
 flash:
 	@echo "Flashing STM32 at address 0x8000000..."
