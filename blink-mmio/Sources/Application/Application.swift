@@ -11,6 +11,14 @@ struct Board {
             rw.raw.gpioben = 1
         }
 
+        // Enable systick register with no interrupt
+        systick.rvr.modify { rw in
+            rw.raw.reload = 1500
+        }
+        systick.cvr.modify { rw in
+            rw.raw.current = 0
+        }
+
         // Enable systick register with default configuration
         systick.setState(.enabled)
 

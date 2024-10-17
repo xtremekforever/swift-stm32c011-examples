@@ -1,4 +1,3 @@
-
 extension GPIOB {
     enum Mode: UInt32 {
         case input = 0x0
