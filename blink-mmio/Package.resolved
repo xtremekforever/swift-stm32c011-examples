@@ -1,5 +1,5 @@
 {
-  "originHash" : "1348c0ae0afe86735dcc887eb1d2e90a3cb7e1c6907193b19c3f8fbeddac7f5a",
+  "originHash" : "fce7a99abfd40f6bf5b60d8da6542d2cfde8c3dd1e2265fc87ea9654d9f927c6",
   "pins" : [
     {
       "identity" : "swift-argument-parser",
@@ -8,6 +8,15 @@
       "state" : {
         "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
         "version" : "1.5.0"
+      }
+    },
+    {
+      "identity" : "swift-cortex-m",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/xtremekforever/swift-cortex-m",
+      "state" : {
+        "branch" : "main",
+        "revision" : "65267545828f31bb35b83d0c8918cedfe227ef7b"
       }
     },
     {

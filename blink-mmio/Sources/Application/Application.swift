@@ -1,7 +1,8 @@
+import CortexM
 import MMIO
 import Support
 
-let LED3 = 6;
+let LED3 = 6
 
 struct Board {
     init() {
@@ -9,6 +10,9 @@ struct Board {
         rcc.iopenr.modify { rw in
             rw.raw.gpioben = 1
         }
+
+        // Enable systick register with default configuration
+        systick.setState(.enabled)
 
         // Configure LED3 as an output with a pull-down
         gpiob.configure(
@@ -23,13 +27,6 @@ struct Board {
     func setLed(value: UInt32) {
         gpiob.set(pin: LED3, value: value)
     }
-
-    @inline(never)
-    static func delay(miliseconds: Int) {
-        for _ in 0..<3000 * miliseconds {
-            nop()
-        }
-    }
 }
 
 @main
@@ -38,9 +35,9 @@ struct Main {
         let board = Board()
         while true {
             board.setLed(value: 1)
-            Board.delay(miliseconds: 100)
+            systick.delay(ticks: 100)
             board.setLed(value: 0)
-            Board.delay(miliseconds: 300)
+            systick.delay(ticks: 300)
         }
     }
 }
