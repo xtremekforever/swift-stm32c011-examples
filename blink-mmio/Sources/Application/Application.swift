@@ -11,15 +11,10 @@ struct Board {
             rw.raw.gpioben = 1
         }
 
-        // Enable systick register with no interrupt
-        systick.rvr.modify { rw in
-            rw.raw.reload = 1500
-        }
-        systick.cvr.modify { rw in
-            rw.raw.current = 0
-        }
+        // Configure systick register
+        systick.configure(reload: 1500)
 
-        // Enable systick register with default configuration
+        // Enable systick register
         systick.setState(.enabled)
 
         // Configure LED3 as an output with a pull-down
