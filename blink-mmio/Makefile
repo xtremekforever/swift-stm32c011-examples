@@ -1,9 +1,12 @@
 
+# Defaults to release build
+CONFIGURATION := release
+
 # Determine file paths
 OUTPUT_NAME := blink
 PRJROOT := .
 SRCROOT := $(PRJROOT)/Sources
-BUILDROOT := $(PRJROOT)/.build/release
+BUILDROOT := $(PRJROOT)/.build/$(CONFIGURATION)
 
 # Target and build flags
 ARCH := armv6m
@@ -22,7 +25,7 @@ all: build lst map size bin
 build:
 	@echo "compiling..."
 	swift build \
-		--configuration release \
+		--configuration $(CONFIGURATION) \
 		--swift-sdks-path ../swift-sdks \
 		--swift-sdk stm32c0xx \
 		$(EXTRA_FLAGS)

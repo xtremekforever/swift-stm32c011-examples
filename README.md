@@ -8,6 +8,10 @@ In particular, these demos are built for the [STM32C0116-DK](https://www.st.com/
 All of these examples can be built under macOS or Linux (Ubuntu) using a Swift 6.0.0 toolchain or later.
 They are made to work with the `arm-none-eabi` that are available for cross-compiling to ARM.
 
+NOTE: In order to build `blink-mmio` in "debug" mode (`make CONFIGURATION=debug`) you will need to have
+a recent trunk snapshot which automatically enables whole module optimization for embedded projects.
+However, release mode builds (which are the default) should work fine with Swift 6.0 or later.
+
 ### macOS
 
 Install the following tools with homebrew:

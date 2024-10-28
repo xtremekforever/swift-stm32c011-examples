@@ -18,6 +18,9 @@ let package = Package(
                 .product(name: "MMIO", package: "swift-mmio"),
                 .product(name: "CortexM", package: "swift-cortex-m"),
                 "Support",
+            ],
+            swiftSettings: [
+                .enableExperimentalFeature("Embedded"),
             ]
         ),
         .target(name: "Support"),
