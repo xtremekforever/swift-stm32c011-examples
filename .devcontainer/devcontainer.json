@@ -1,6 +1,6 @@
 {
     "name": "swift-stm32c011-examples",
-    "image": "swift:6.0.1-jammy",
+    "image": "swiftlang/swift:nightly-jammy",
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": "false",
