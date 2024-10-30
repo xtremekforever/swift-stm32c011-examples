@@ -40,7 +40,7 @@ build:
 
 lst: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting lst file..."
-	$(OBJDUMP) -S $^ > $(BUILDROOT)/$(OUTPUT_NAME).lst
+	$(OBJDUMP) -S $^ | $(DEMANGLE) > $(BUILDROOT)/$(OUTPUT_NAME).lst
 
 map: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting map file..."
