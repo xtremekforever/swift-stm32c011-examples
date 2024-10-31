@@ -2,8 +2,14 @@
 
 import MMIO
 
+/// Analog to Digital Converter
+let adc = ADC(unsafeAddress: 0x4001_2400)
+
+/// GPIOA address block description
+let gpioa = GPIO(unsafeAddress: 0x5000_0000)
+
 /// GPIOB address block description
-let gpiob = GPIOB(unsafeAddress: 0x5000_0400)
+let gpiob = GPIO(unsafeAddress: 0x5000_0400)
 
 /// RCC address block description
-let rcc = RCC(unsafeAddress: 0x40021000)
+let rcc = RCC(unsafeAddress: 0x4002_1000)

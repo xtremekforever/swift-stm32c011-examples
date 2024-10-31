@@ -1,4 +1,4 @@
-extension GPIOB {
+extension GPIO {
     enum Mode: UInt32 {
         case input = 0x0
         case output = 0x1

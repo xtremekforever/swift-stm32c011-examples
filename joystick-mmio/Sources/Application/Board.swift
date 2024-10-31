@@ -5,9 +5,15 @@ struct STM32C0116_DK {
     let LED3 = 6
 
     init() {
-        // Enable GPIOB
+        // Enable GPIOs
         rcc.iopenr.modify { rw in
+            rw.raw.gpioaen = 1
             rw.raw.gpioben = 1
+        }
+
+        // Enable ADC
+        rcc.apbenr2.modify { rw in
+            rw.raw.adcen = 1
         }
 
         // Configure systick register + enable
@@ -17,7 +23,7 @@ struct STM32C0116_DK {
         // Configure LED3 as an output with a pull-down
         gpiob.configure(
             pin: LED3,
-            as: GPIOB.Configuration(
+            as: GPIO.Configuration(
                 mode: .output, outputType: .pushPull, outputSpeed: .high,
                 pull: .down, alternateFunction: 0
             )
