@@ -46,3 +46,57 @@ from the command palette or when prompted.
 ## Compiling
 
 Each project can be built using the `make` command. Also, for each project, build artifacts are found in the `.build` subdirectory, which will include *.elf, *.map, *.lst, and *.bin files.
+
+## Flashing
+
+For the STM32C0116-DK there are 2 options for flashing:
+
+ 1. Copy the *.bin file to the `DIS_C011F6` USB storage drive that becomes available when you connect the board to your computer.
+ 2. Use `st-flash` to program the *.bin file.
+
+### USB Storage
+
+If using the devcontainer, navigate to the `.build` directory for the project and find the *.bin file that is generated, then download it. Otherwise, you can copy it directly from that directory to the `DIS_C011F6` drive. For example:
+
+```bash
+cp .build/release/blink.bin /media/user/DIS_C011F6/
+```
+
+### st-flash Utility
+
+The Makefile in each project has a `flash` target that can be used like this:
+
+```bash
+# Release mode
+$ make flash
+2024-10-31T15:17:36 INFO common.c: STM32C011xx: 6 KiB SRAM, 32 KiB flash in at least 2 KiB pages.
+file ./.build/blink.bin md5 checksum: f1dd195864094213d8b89ac014255b, stlink checksum: 0x00007728
+2024-10-31T15:17:36 INFO common_flash.c: Attempting to write 492 (0x1ec) bytes to stm32 address: 134217728 (0x8000000)
+-> Flash page at 0x8000000 erased (size: 0x800)
+2024-10-31T15:17:36 INFO flash_loader.c: Starting Flash write for WB/G0/G4/L5/U5/H5/C0
+
+2024-10-31T15:17:36 INFO common_flash.c: Starting verification of write complete
+2024-10-31T15:17:36 INFO common_flash.c: Flash written and verified! jolly good!
+2024-10-31T15:17:36 INFO common.c: Go to Thumb mode
+
+# Debug mode, for -mmio projects
+$ make flash CONFIGURATION=debug
+```
+
+This cannot be used inside of the devcontainer since it does not forward the `/dev/stlinkv2*` devices to the container. So, you must have the USB of the DK connected directly to the machine to use `st-flash`.
+
+If you want to use the `st-flash` utility without depending on the Makefile, just grab the binary from the `.build` directory of the project and use the following command:
+
+```bash
+$ st-flash write blink.bin 0x8000000
+st-flash 1.8.0
+2024-10-31T15:25:47 INFO common.c: STM32C011xx: 6 KiB SRAM, 32 KiB flash in at least 2 KiB pages.
+file blink.bin md5 checksum: 6d3bf4699e7939f1634cc355bc423, stlink checksum: 0x0000d9bb
+2024-10-31T15:25:47 INFO common_flash.c: Attempting to write 744 (0x2e8) bytes to stm32 address: 134217728 (0x8000000)
+-> Flash page at 0x8000000 erased (size: 0x800)
+2024-10-31T15:25:47 INFO flash_loader.c: Starting Flash write for WB/G0/G4/L5/U5/H5/C0
+
+2024-10-31T15:25:47 INFO common_flash.c: Starting verification of write complete
+2024-10-31T15:25:47 INFO common_flash.c: Flash written and verified! jolly good!
+2024-10-31T15:25:47 INFO common.c: Go to Thumb mode
+```

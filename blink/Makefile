@@ -29,7 +29,7 @@ CLANG_FLAGS := -target $(TARGET) -Os $(CPU_FLAGS) $(COMMON_FLAGS)
 LD_EXEC := arm-none-eabi-gcc
 LD_FLAGS := -Wl,--gc-sections -T$(SRCROOT)/STM32C011F6.ld $(CPU_FLAGS) $(COMMON_FLAGS) --specs=nano.specs --specs=nosys.specs
 
-.PHONY: all
+.PHONY: all flash
 all: $(BUILDROOT)/blink.bin $(BUILDROOT)/blink.lst $(BUILDROOT)/blink.map
 clean:
 	rm -rf $(BUILDROOT)/*
@@ -63,3 +63,7 @@ $(BUILDROOT)/blink.bin: $(BUILDROOT)/blink.elf
 	$(OBJCOPY) -O binary $^ $@
 	# Echo final binary path
 	ls -al $(BUILDROOT)/blink.bin
+
+flash:
+	@echo "Flashing STM32 at address 0x8000000..."
+	@st-flash write $(BUILDROOT)/blink.bin 0x8000000
