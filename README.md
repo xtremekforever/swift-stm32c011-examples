@@ -3,6 +3,8 @@
 These are a couple of examples for the STM32C011 built using Swift for Embedded that is available in Swift 6.0 and later.
 In particular, these demos are built for the [STM32C0116-DK](https://www.st.com/en/evaluation-tools/stm32c0116-dk.html) which is a simple development kit that contains a few peripherals to play with, such as an LED, 5-way joystick, UART, and LCD connectors.
 
+![Illustration of the STM32C0116-DK](images/STM32C0116-DK.jpg "STM32C0116-DK")
+
 ## Prerequisites
 
 All of these examples can be built under macOS or Linux (Ubuntu, or WSL2 in Windows) using a Swift 6.0.0 toolchain or later.
@@ -43,9 +45,19 @@ To get started, install the [Dev Containers](https://marketplace.visualstudio.co
 extension in Visual Studio Code. Open the root of this repo in VSCode, then choose to "Reopen in Dev Container"
 from the command palette or when prompted.
 
-## Compiling
+## Demos
 
-Each project can be built using the `make` command. Also, for each project, build artifacts are found in the `.build` subdirectory, which will include *.elf, *.map, *.lst, and *.bin files.
+This repo contains the following demos:
+
+- [blink](./blink): An extremely simple demo that binks LED3 with no external dependencies.
+- [blink-mmio](./blink-mmio): A very simple demo that blinks LED3, employing swift-mmio and swift-cortex-m libraries.
+- [joystick-mmio](./joystick-mmio): Demo of using the joystick ADC input to blink LED3 at different rates depending on what direction the joystick is depressed.
+
+Each of the demo projects have their own `Makefile` for compiling the project and linking it for the STM32C011.
+
+## Scripts
+
+There are also some [scripts](./scripts) that include the needed support files and documentation for generating MMIO register blocks using the provided SVD file. This is useful for others wanting to take this demos repo and expand on it for their own projects.
 
 ## Flashing
 
@@ -56,11 +68,9 @@ For the STM32C0116-DK there are 2 options for flashing:
 
 ### USB Storage
 
-If using the devcontainer, navigate to the `.build` directory for the project and find the *.bin file that is generated, then download it. Otherwise, you can copy it directly from that directory to the `DIS_C011F6` drive. For example:
+If using the devcontainer, navigate to the `.build` directory for the project and find the *.bin file that is generated, then download it. Otherwise, you can copy it directly from that directory to the `DIS_C011F6` drive.
 
-```bash
-cp .build/release/blink.bin /media/user/DIS_C011F6/
-```
+If the binary flashes successfully and could be run, the USB drive will come back normally. Otherwise, if the file copied is invalid, a `FAIL.txt` file will be present on the `DIS_C011F6` drive and the status LED on the board will be red.
 
 ### st-flash Utility
 
