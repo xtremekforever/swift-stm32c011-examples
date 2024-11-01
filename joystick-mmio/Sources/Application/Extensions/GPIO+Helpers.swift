@@ -29,7 +29,7 @@ extension GPIO {
         var outputType: OutputType
         var outputSpeed: OutputSpeed
         var pull: Pull
-        var alternateFunction: UInt32
+        var alternateFunction: UInt32 = 0
     }
 
     func get(pin: Int) -> UInt32 {
