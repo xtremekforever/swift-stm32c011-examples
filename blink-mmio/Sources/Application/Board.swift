@@ -26,6 +26,7 @@ struct STM32C0116_DK {
         )
     }
 
+    /// This LED is Active Low
     func setLed(value: UInt32) {
         gpiob.set(pin: LED3, value: value)
     }

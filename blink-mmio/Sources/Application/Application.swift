@@ -7,9 +7,9 @@ struct Main {
     static func main() {
         let board = Board()
         while true {
-            board.setLed(value: 1)
-            systick.delay(ticks: 100)
             board.setLed(value: 0)
+            systick.delay(ticks: 100)
+            board.setLed(value: 1)
             systick.delay(ticks: 300)
         }
     }

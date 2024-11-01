@@ -23,7 +23,7 @@ DEMANGLE = swift demangle
 .PHONY: all build link map lst size bin flash clean
 all: build link lst map size bin
 build:
-	@echo "compiling..."
+	@echo "compiling (please be patient, this may take a few minutes)..."
 	swift build \
 		--configuration $(CONFIGURATION) \
 		--swift-sdks-path ../swift-sdks \
