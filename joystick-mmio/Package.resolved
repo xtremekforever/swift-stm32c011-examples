@@ -1,0 +1,42 @@
+{
+  "originHash" : "3d8c83b6b34e36a8f27ab727dec28d8cec77dbff09f7cf7dc24e474862c0b345",
+  "pins" : [
+    {
+      "identity" : "swift-argument-parser",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-argument-parser.git",
+      "state" : {
+        "revision" : "41982a3656a71c768319979febd796c6fd111d5c",
+        "version" : "1.5.0"
+      }
+    },
+    {
+      "identity" : "swift-cortex-m",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/xtremekforever/swift-cortex-m",
+      "state" : {
+        "branch" : "main",
+        "revision" : "32fbb1064bd61ec77abe1b852ce17655fefab2aa"
+      }
+    },
+    {
+      "identity" : "swift-mmio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-mmio",
+      "state" : {
+        "branch" : "swift-embedded-examples",
+        "revision" : "06d96ed4916739f2edafde87f3951b2d2a04df65"
+      }
+    },
+    {
+      "identity" : "swift-syntax",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
+      "state" : {
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
+      }
+    }
+  ],
+  "version" : 3
+}

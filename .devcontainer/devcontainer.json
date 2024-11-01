@@ -1,6 +1,9 @@
 {
     "name": "swift-stm32c011-examples",
     "image": "swiftlang/swift:nightly-jammy",
+    "mounts": [
+        "type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/vscode/.ssh"
+    ],
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": "false",
@@ -44,7 +47,7 @@
             ]
         }
     },
-    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y make gcc-arm-none-eabi stlink-tools",
+    "postCreateCommand": "sudo apt-get update && sudo apt-get install -y make gcc-arm-none-eabi",
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
