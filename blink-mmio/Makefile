@@ -20,8 +20,8 @@ OBJDUMP  = arm-none-eabi-objdump
 SIZE     = arm-none-eabi-size
 DEMANGLE = swift demangle
 
-.PHONY: all build map lst size bin flash clean
-all: build lst map size bin
+.PHONY: all build link map lst size bin flash clean
+all: build link lst map size bin
 build:
 	@echo "compiling..."
 	swift build \
@@ -30,6 +30,7 @@ build:
 		--swift-sdk stm32c0xx \
 		$(EXTRA_FLAGS)
 
+link:
 	@echo "linking..."
 	arm-none-eabi-gcc $(BUILDROOT)/libApplication.a -o $(BUILDROOT)/$(OUTPUT_NAME).elf \
 		-mcpu=cortex-m0plus -mthumb -mfloat-abi=soft \
@@ -48,13 +49,13 @@ map: $(BUILDROOT)/$(OUTPUT_NAME).elf
 
 size: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting & printing sizes..."
-	$(SIZE) $^ -A > $(BUILDROOT)/$(OUTPUT_NAME).size
-	@$(SIZE) $^
+	$(SIZE) $^ -G > $(BUILDROOT)/$(OUTPUT_NAME).size
+	@cat $(BUILDROOT)/$(OUTPUT_NAME).size
 
 bin: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting bin file..."
 	$(OBJCOPY) -O binary $^ $(BUILDROOT)/$(OUTPUT_NAME).bin
-	@ls -al $(BUILDROOT)/$(OUTPUT_NAME).bin
+	@ls -alh $(BUILDROOT)/$(OUTPUT_NAME).bin
 
 flash:
 	@echo "Flashing STM32 at address 0x8000000..."
