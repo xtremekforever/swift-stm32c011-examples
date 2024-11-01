@@ -7,10 +7,10 @@ In particular, these demos are built for the [STM32C0116-DK](https://www.st.com/
 
 ## Prerequisites
 
-All of these examples can be built under macOS or Linux (Ubuntu, or WSL2 in Windows) using a Swift 6.0.0 toolchain or later.
-They are made to work with the `arm-none-eabi` that are available for cross-compiling to ARM.
+All of these examples can be built under macOS or Linux (including WSL2 in Windows) using a Swift 6.0.0 toolchain or later.
+They are made to work with the `arm-none-eabi` tools that are available for cross-compiling to ARM.
 
-NOTE: In order to build `blink-mmio` in "debug" mode (`make CONFIGURATION=debug`) you will need to have
+NOTE: In order to build `*-mmio` projects in "debug" mode (`make CONFIGURATION=debug`) you will need to have
 a recent trunk snapshot which automatically enables whole module optimization for embedded projects.
 However, release mode builds (which are the default) should work fine with Swift 6.0 or later.
 
@@ -53,7 +53,7 @@ This repo contains the following demos:
 - [blink-mmio](./blink-mmio): A very simple demo that blinks LED3, employing swift-mmio and swift-cortex-m libraries.
 - [joystick-mmio](./joystick-mmio): Demo of using the joystick ADC input to blink LED3 at different rates depending on what direction the joystick is depressed.
 
-Each of the demo projects have their own `Makefile` for compiling the project and linking it for the STM32C011.
+Each of the demo projects has their own `Makefile` for compiling the project and linking it for the STM32C011.
 
 ## Scripts
 
