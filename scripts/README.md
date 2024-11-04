@@ -1,6 +1,11 @@
-# SVD Scripts
+# Support Scripts
 
-This directory contains the `stm32c011.svd.patched`, which is the SVD reference file that was patched
+This directory contains some scripts to help with using this project. There are some install scripts
+to make it easy to install dependencies needed for the project:
+
+- `install-dependencies-ubuntu.sh`: Install the needed packages and the latest `stlink` for Ubuntu.
+
+This directory also contains `stm32c011.svd.patched`, which is the SVD reference file that was patched
 as part of the [stm32-rs](https://stm32-rs.github.io/stm32-rs/) project. Other SVD files can be found
 there, but we include only the one for the STM32C011 here.
 
