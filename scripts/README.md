@@ -4,6 +4,7 @@ This directory contains some scripts to help with using this project. There are 
 to make it easy to install dependencies needed for the project:
 
 - `install-dependencies-ubuntu.sh`: Install the needed packages and the latest `stlink` for Ubuntu.
+- `install-dependencies-fedora.sh`: Install the needed packages for Fedora (or RedHat/CentOS).
 
 This directory also contains `stm32c011.svd.patched`, which is the SVD reference file that was patched
 as part of the [stm32-rs](https://stm32-rs.github.io/stm32-rs/) project. Other SVD files can be found
