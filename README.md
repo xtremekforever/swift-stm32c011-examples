@@ -27,8 +27,14 @@ brew install gcc-arm-embedded stlink
 On a Ubuntu host (20.04-24.04), install the following dependencies:
 
 ```bash
-sudo apt install build-essential gcc-arm-none-eabi stlink-tools
+sudo apt install build-essential gcc-arm-none-eabi
 ```
+
+NOTE: If you are on Ubuntu 22.04 or older, you will need to grab the latest version of the stlink
+tools from [here](https://github.com/stlink-org/stlink/releases) for flashing to work properly.
+Older versions of the `stlink-tools` that are included in Ubuntu do not support the processor ID of
+the STM32C011. An easy way to do this is to use the `install-dependencies-ubuntu.sh` script in the
+[scripts](./scripts) directory.
 
 For RHEL/Fedora, install the following dependencies:
 
@@ -92,8 +98,6 @@ file ./.build/blink.bin md5 checksum: f1dd195864094213d8b89ac014255b, stlink che
 # Debug mode, for -mmio projects
 $ make flash CONFIGURATION=debug
 ```
-
-This cannot be used inside of the devcontainer since it does not forward the `/dev/stlinkv2*` devices to the container. So, you must have the USB of the DK connected directly to the machine to use `st-flash`.
 
 If you want to use the `st-flash` utility without depending on the Makefile, just grab the binary from the `.build` directory of the project and use the following command:
 
