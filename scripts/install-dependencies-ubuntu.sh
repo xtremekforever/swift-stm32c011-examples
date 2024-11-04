@@ -10,7 +10,8 @@ echo "Removing incompatible stlink-tools..."
 sudo apt-get remove -y stlink-tools
 
 echo "Installing dependencies needed to build and flash..."
-sudo apt-get install -y make gcc-arm-none-eabi kmod linux-headers-$(uname -r)
+sudo apt-get install -y make gcc-arm-none-eabi
+sudo apt-get install -y kmod linux-headers-$(uname -r)
 
 echo "Downloading latest stlink release for Ubuntu..."
 wget https://github.com/stlink-org/stlink/releases/download/v$STLINK_VERSION/$STLINK_DEB
