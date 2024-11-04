@@ -6,7 +6,8 @@
       "-mfloat-abi=soft",
       "-ffreestanding",
       "-ffunction-sections",
-      "-fshort-enums"
+      "-fshort-enums",
+      "-gdwarf-4"
     ]
   },
   "swiftCompiler": {
