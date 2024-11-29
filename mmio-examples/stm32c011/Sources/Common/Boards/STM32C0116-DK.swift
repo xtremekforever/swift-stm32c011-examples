@@ -1,8 +1,7 @@
-import Common
 import CortexM
 import MMIO
 
-struct STM32C0116_DK {
+public struct STM32C0116_DK {
     /// PA4
     let JOYSTICK_PIN = 4
     /// PA8
@@ -11,13 +10,54 @@ struct STM32C0116_DK {
     // PB6
     let LED3 = 6
 
+    // Variables
     var joystickVoltage: UInt32 = 0
 
-    init() {
-        // Enable GPIOs
+    public init() {
+        // Configure systick register + enable
+        systick.configure(reload: 1500)
+        systick.setState(.enabled)
+    }
+
+    // MARK: LED
+    public func configureLed() {
+        // Enable GPIOB
+        rcc.iopenr.modify { rw in
+            rw.raw.gpioben = 1
+        }
+
+        // Configure LED3 as an output with a pull-down
+        gpiob.configure(
+            pin: LED3,
+            as: .init(mode: .output, outputType: .pushPull, outputSpeed: .high, pull: .down)
+        )
+    }
+
+    public enum LedState: UInt32 {
+        case on = 0
+        case off = 1
+    }
+
+    public var ledState: LedState {
+        gpiob.get(pin: LED3) == 0 ? .on : .off
+    }
+
+    public func setLed(_ state: LedState) {
+        gpiob.set(pin: LED3, value: state.rawValue)
+    }
+
+    public func blinkLed(for ticks: Int) {
+        setLed(.on)
+        systick.delay(ticks: ticks)
+        setLed(.off)
+        systick.delay(ticks: ticks)
+    }
+
+    // MARK: Joystick
+    public func configureJoystick() {
+        // Enable GPIOA
         rcc.iopenr.modify { rw in
             rw.raw.gpioaen = 1
-            rw.raw.gpioben = 1
         }
 
         // Enable ADC
@@ -25,20 +65,10 @@ struct STM32C0116_DK {
             rw.raw.adcen = 1
         }
 
-        // Configure systick register + enable
-        systick.configure(reload: 1500)
-        systick.setState(.enabled)
-
         // Configure JOYSTICK_PIN as analog
         gpioa.configure(
             pin: JOYSTICK_PIN,
             as: .init(mode: .analog, outputType: .pushPull, outputSpeed: .high, pull: .none)
-        )
-
-        // Configure LED3 as an output with a pull-down
-        gpiob.configure(
-            pin: LED3,
-            as: .init(mode: .output, outputType: .pushPull, outputSpeed: .high, pull: .down)
         )
 
         // Configure global ADC features
@@ -56,27 +86,12 @@ struct STM32C0116_DK {
         adc.enable()
     }
 
-    var ledState: Bool {
-        gpiob.get(pin: LED3) == 0 ? true : false
-    }
-
-    func setLed(on: Bool) {
-        gpiob.set(pin: LED3, value: on ? 0 : 1)
-    }
-
-    func blinkLed(for ticks: Int) {
-        setLed(on: true)
-        systick.delay(ticks: ticks)
-        setLed(on: false)
-        systick.delay(ticks: ticks)
-    }
-
-    mutating func readVoltages() {
+    public mutating func readVoltages() {
         adc.start()
         joystickVoltage = adc.getValue()
     }
 
-    enum JoystickState {
+    public enum JoystickState {
         case select
         case left
         case down
@@ -92,7 +107,7 @@ struct STM32C0116_DK {
     let joystickVoltageUp: Range<UInt32> = 2370..<2618
     let joystickVoltageRight: Range<UInt32> = 3000..<3312
 
-    var joystickState: JoystickState {
+    public var joystickState: JoystickState {
         switch joystickVoltage {
         case joystickVoltageSelect:
             return .select

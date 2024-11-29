@@ -7,10 +7,14 @@ struct Main {
 
     static func main() {
         let board = Board()
+
+        // Configure peripherals that are used
+        board.configureLed()
+
         while true {
-            board.setLed(value: 0)
+            board.setLed(.on)
             systick.delay(ticks: 100)
-            board.setLed(value: 1)
+            board.setLed(.off)
             systick.delay(ticks: 300)
         }
     }

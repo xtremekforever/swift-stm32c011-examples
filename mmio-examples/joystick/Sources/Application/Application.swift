@@ -1,3 +1,4 @@
+import Common
 import CortexM
 
 @main
@@ -6,6 +7,11 @@ struct Main {
 
     static func main() {
         var board = Board()
+
+        // Setup peripherals we use
+        board.configureLed()
+        board.configureJoystick()
+
         while true {
             // Read voltages of the configured ADCs (JOYSTICK_ADC_CHANNEL)
             board.readVoltages()
@@ -13,7 +19,7 @@ struct Main {
             // Set LED based on joystick state
             switch board.joystickState {
             case .select:
-                board.setLed(on: true)
+                board.setLed(.on)
             case .up:
                 board.blinkLed(for: 25)
             case .right:
@@ -23,7 +29,7 @@ struct Main {
             case .left:
                 board.blinkLed(for: 100)
             case .none:
-                board.setLed(on: false)
+                board.setLed(.off)
             }
         }
     }
