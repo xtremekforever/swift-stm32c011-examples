@@ -36,7 +36,7 @@ link:
 		-ffreestanding -fdata-sections -ffunction-sections -fno-builtin -fno-common -fshort-enums -std=gnu11 \
 		--specs=nano.specs --specs=nosys.specs \
 		-Wl,--gc-sections \
-		-T../stm32c011/STM32C011F6.ld
+		-T../stm32c011/$(LINK_SCRIPT)
 
 lst: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting lst file..."
