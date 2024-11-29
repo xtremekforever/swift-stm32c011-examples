@@ -26,7 +26,7 @@ build:
 	@echo "compiling (please be patient, this may take a few minutes)..."
 	swift build \
 		--configuration $(CONFIGURATION) \
-		--swift-sdks-path ../swift-sdks \
+		--swift-sdks-path ../stm32c011/SDKs \
 		--swift-sdk stm32c0xx \
 		$(EXTRA_FLAGS)
 
@@ -37,7 +37,7 @@ link:
 		-ffreestanding -fdata-sections -ffunction-sections -fno-builtin -fno-common -fshort-enums -std=gnu11 \
 		--specs=nano.specs --specs=nosys.specs \
 		-Wl,--gc-sections \
-		-T$(SRCROOT)/Support/STM32C011F6.ld
+		-T../stm32c011/Sources/Support/STM32C011F6.ld
 
 lst: $(BUILDROOT)/$(OUTPUT_NAME).elf
 	@echo "Extracting lst file..."

@@ -1,3 +1,4 @@
+import Common
 import CortexM
 import MMIO
 
@@ -19,7 +20,7 @@ struct STM32C0116_DK {
         // Configure LED3 as an output with a pull-down
         gpiob.configure(
             pin: LED3,
-            as: GPIOB.Configuration(
+            as: GPIO.Configuration(
                 mode: .output, outputType: .pushPull, outputSpeed: .high,
                 pull: .down, alternateFunction: 0
             )

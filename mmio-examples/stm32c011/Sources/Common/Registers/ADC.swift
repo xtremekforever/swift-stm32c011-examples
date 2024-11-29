@@ -4,209 +4,209 @@ import MMIO
 
 /// Analog to Digital Converter
 @RegisterBlock
-struct ADC {
+public struct ADC: Sendable {
     /// ADC interrupt and status register
     @RegisterBlock(offset: 0x0)
-    var isr: Register<ISR>
+    public var isr: Register<ISR>
 
     /// ADC interrupt enable register
     @RegisterBlock(offset: 0x4)
-    var ier: Register<IER>
+    public var ier: Register<IER>
 
     /// ADC control register
     @RegisterBlock(offset: 0x8)
-    var cr: Register<CR>
+    public var cr: Register<CR>
 
     /// ADC configuration register 1
     @RegisterBlock(offset: 0xc)
-    var cfgr1: Register<CFGR1>
+    public var cfgr1: Register<CFGR1>
 
     /// ADC configuration register 2
     @RegisterBlock(offset: 0x10)
-    var cfgr2: Register<CFGR2>
+    public var cfgr2: Register<CFGR2>
 
     /// ADC sampling time register
     @RegisterBlock(offset: 0x14)
-    var smpr: Register<SMPR>
+    public var smpr: Register<SMPR>
 
     /// ADC watchdog threshold register
     @RegisterBlock(offset: 0x20)
-    var awd1tr: Register<AWD1TR>
+    public var awd1tr: Register<AWD1TR>
 
     /// ADC watchdog threshold register
     @RegisterBlock(offset: 0x24)
-    var awd2tr: Register<AWD2TR>
+    public var awd2tr: Register<AWD2TR>
 
     /// ADC channel selection register [alternate]
     @RegisterBlock(offset: 0x28)
-    var chselr0: Register<CHSELR0>
+    public var chselr0: Register<CHSELR0>
 
     /// ADC channel selection register [alternate]
     @RegisterBlock(offset: 0x28)
-    var chselr1: Register<CHSELR1>
+    public var chselr1: Register<CHSELR1>
 
     /// ADC watchdog threshold register
     @RegisterBlock(offset: 0x2c)
-    var awd3tr: Register<AWD3TR>
+    public var awd3tr: Register<AWD3TR>
 
     /// ADC data register
     @RegisterBlock(offset: 0x40)
-    var dr: Register<DR>
+    public var dr: Register<DR>
 
     /// ADC Analog Watchdog 2 Configuration register
     @RegisterBlock(offset: 0xa0)
-    var awd2cr: Register<AWD2CR>
+    public var awd2cr: Register<AWD2CR>
 
     /// ADC Analog Watchdog 3 Configuration register
     @RegisterBlock(offset: 0xa4)
-    var awd3cr: Register<AWD3CR>
+    public var awd3cr: Register<AWD3CR>
 
     /// ADC Calibration factor
     @RegisterBlock(offset: 0xb4)
-    var calfact: Register<CALFACT>
+    public var calfact: Register<CALFACT>
 
     /// ADC common configuration register
     @RegisterBlock(offset: 0x308)
-    var ccr: Register<CCR>
+    public var ccr: Register<CCR>
 }
 
 extension ADC {
     /// ADC interrupt and status register
     @Register(bitWidth: 32)
-    struct ISR {
+    public struct ISR {
         /// ADC ready
         /// This bit is set by hardware after the ADC has been enabled (ADEN = 1) and when the ADC reaches a state where it is ready to accept conversion requests.
         /// It is cleared by software writing 1 to it.
         @ReadWrite(bits: 0..<1)
-        var adrdy: ADRDY
+        public var adrdy: ADRDY
 
         /// End of sampling flag
         /// This bit is set by hardware during the conversion, at the end of the sampling phase.It is cleared by software by programming it to ‘1’.
         @ReadWrite(bits: 1..<2)
-        var eosmp: EOSMP
+        public var eosmp: EOSMP
 
         /// End of conversion flag
         /// This bit is set by hardware at the end of each conversion of a channel when a new data result is available in the ADC_DR register. It is cleared by software writing 1 to it or by reading the ADC_DR register.
         @ReadWrite(bits: 2..<3)
-        var eoc: EOC
+        public var eoc: EOC
 
         /// End of sequence flag
         /// This bit is set by hardware at the end of the conversion of a sequence of channels selected by the CHSEL bits. It is cleared by software writing 1 to it.
         @ReadWrite(bits: 3..<4)
-        var eos: EOS
+        public var eos: EOS
 
         /// ADC overrun
         /// This bit is set by hardware when an overrun occurs, meaning that a new conversion has complete while the EOC flag was already set. It is cleared by software writing 1 to it.
         @ReadWrite(bits: 4..<5)
-        var ovr: OVR
+        public var ovr: OVR
 
         /// Analog watchdog 1 flag
         /// This bit is set by hardware when the converted voltage crosses the values programmed in ADC_TR1 and ADC_HR1 registers. It is cleared by software by programming it to 1.
         @ReadWrite(bits: 7..<8)
-        var awd1: AWD1
+        public var awd1: AWD1
 
         /// Analog watchdog 2 flag
         /// This bit is set by hardware when the converted voltage crosses the values programmed in ADC_AWD2TR and ADC_AWD2TR registers. It is cleared by software programming it it.
         @ReadWrite(bits: 8..<9)
-        var awd2: AWD2
+        public var awd2: AWD2
 
         /// Analog watchdog 3 flag
         /// This bit is set by hardware when the converted voltage crosses the values programmed in ADC_AWD3TR and ADC_AWD3TR registers. It is cleared by software by programming it to 1.
         @ReadWrite(bits: 9..<10)
-        var awd3: AWD3
+        public var awd3: AWD3
 
         /// End Of Calibration flag
         /// This bit is set by hardware when calibration is complete. It is cleared by software writing 1 to it.
         @ReadWrite(bits: 11..<12)
-        var eocal: EOCAL
+        public var eocal: EOCAL
 
         /// Channel Configuration Ready flag
         /// This flag bit is set by hardware when the channel configuration is applied after programming to ADC_CHSELR register or changing CHSELRMOD or SCANDIR. It is cleared by software by programming it to it.
         /// Note: When the software configures the channels (by programming ADC_CHSELR or changing CHSELRMOD or SCANDIR), it must wait until the CCRDY flag rises before configuring again or starting conversions, otherwise the new configuration (or the START bit) is ignored. Once the flag is asserted, if the software needs to configure again the channels, it must clear the CCRDY flag before proceeding with a new configuration.
         @ReadWrite(bits: 13..<14)
-        var ccrdy: CCRDY
+        public var ccrdy: CCRDY
     }
 
     /// ADC interrupt enable register
     @Register(bitWidth: 32)
-    struct IER {
+    public struct IER {
         /// ADC ready interrupt enable
         /// This bit is set and cleared by software to enable/disable the ADC Ready interrupt.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 0..<1)
-        var adrdyie: ADRDYIE
+        public var adrdyie: ADRDYIE
 
         /// End of sampling flag interrupt enable
         /// This bit is set and cleared by software to enable/disable the end of the sampling phase interrupt.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 1..<2)
-        var eosmpie: EOSMPIE
+        public var eosmpie: EOSMPIE
 
         /// End of conversion interrupt enable
         /// This bit is set and cleared by software to enable/disable the end of conversion interrupt.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 2..<3)
-        var eocie: EOCIE
+        public var eocie: EOCIE
 
         /// End of conversion sequence interrupt enable
         /// This bit is set and cleared by software to enable/disable the end of sequence of conversions interrupt.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 3..<4)
-        var eosie: EOSIE
+        public var eosie: EOSIE
 
         /// Overrun interrupt enable
         /// This bit is set and cleared by software to enable/disable the overrun interrupt.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 4..<5)
-        var ovrie: OVRIE
+        public var ovrie: OVRIE
 
         /// Analog watchdog 1 interrupt enable
         /// This bit is set and cleared by software to enable/disable the analog watchdog interrupt.
         /// Note: The Software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 7..<8)
-        var awd1ie: AWD1IE
+        public var awd1ie: AWD1IE
 
         /// Analog watchdog 2 interrupt enable
         /// This bit is set and cleared by software to enable/disable the analog watchdog interrupt.
         /// Note: The Software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 8..<9)
-        var awd2ie: AWD2IE
+        public var awd2ie: AWD2IE
 
         /// Analog watchdog 3 interrupt enable
         /// This bit is set and cleared by software to enable/disable the analog watchdog interrupt.
         /// Note: The Software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 9..<10)
-        var awd3ie: AWD3IE
+        public var awd3ie: AWD3IE
 
         /// End of calibration interrupt enable
         /// This bit is set and cleared by software to enable/disable the end of calibration interrupt.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 11..<12)
-        var eocalie: EOCALIE
+        public var eocalie: EOCALIE
 
         /// Channel Configuration Ready Interrupt enable
         /// This bit is set and cleared by software to enable/disable the channel configuration ready interrupt.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 13..<14)
-        var ccrdyie: CCRDYIE
+        public var ccrdyie: CCRDYIE
     }
 
     /// ADC control register
     @Register(bitWidth: 32)
-    struct CR {
+    public struct CR {
         /// ADC enable command
         /// This bit is set by software to enable the ADC. The ADC is effectively ready to operate once the ADRDY flag has been set.
         /// It is cleared by hardware when the ADC is disabled, after the execution of the ADDIS command.
         /// Note: The software is allowed to set ADEN only when all bits of ADC_CR registers are 0 (ADCAL = 0, ADSTP = 0, ADSTART = 0, ADDIS = 0 and ADEN = 0)
         @ReadWrite(bits: 0..<1)
-        var aden: ADEN
+        public var aden: ADEN
 
         /// ADC disable command
         /// This bit is set by software to disable the ADC (ADDIS command) and put it into power-down state (OFF state).
         /// It is cleared by hardware once the ADC is effectively disabled (ADEN is also cleared by hardware at this time).
         /// Note: Setting ADDIS to ‘1’ is only effective when ADEN = 1 and ADSTART = 0 (which ensures that no conversion is ongoing)
         @ReadWrite(bits: 1..<2)
-        var addis: ADDIS
+        public var addis: ADDIS
 
         /// ADC start conversion command
         /// This bit is set by software to start ADC conversion. Depending on the EXTEN [1:0] configuration bits, a conversion either starts immediately (software trigger configuration) or once a hardware trigger event occurs (hardware trigger configuration).
@@ -217,21 +217,21 @@ extension ADC {
         /// Note: The software is allowed to set ADSTART only when ADEN = 1 and ADDIS = 0 (ADC is enabled and there is no pending request to disable the ADC).
         /// After writing to ADC_CHSELR register or changing CHSELRMOD or SCANDIRW, it is mandatory to wait until CCRDY flag is asserted before setting ADSTART, otherwise, the value written to ADSTART is ignored.
         @ReadWrite(bits: 2..<3)
-        var adstart: ADSTART
+        public var adstart: ADSTART
 
         /// ADC stop conversion command
         /// This bit is set by software to stop and discard an ongoing conversion (ADSTP Command).
         /// It is cleared by hardware when the conversion is effectively discarded and the ADC is ready to accept a new start conversion command.
         /// Note: Setting ADSTP to ‘1’ is only effective when ADSTART = 1 and ADDIS = 0 (ADC is enabled and may be converting and there is no pending request to disable the ADC)
         @ReadWrite(bits: 4..<5)
-        var adstp: ADSTP
+        public var adstp: ADSTP
 
         /// ADC Voltage Regulator Enable
         /// This bit is set by software, to enable the ADC internal voltage regulator. The voltage regulator output is available after tADCVREG_SETUP.
         /// It is cleared by software to disable the voltage regulator. It can be cleared only if ADEN is et to 0.
         /// Note: The software is allowed to program this bit field only when the ADC is disabled (ADCAL = 0, ADSTART = 0, ADSTP = 0, ADDIS = 0 and ADEN = 0).
         @ReadWrite(bits: 28..<29)
-        var advregen: ADVREGEN
+        public var advregen: ADVREGEN
 
         /// ADC calibration
         /// This bit is set by software to start the calibration of the ADC.
@@ -239,106 +239,106 @@ extension ADC {
         /// Note: The software is allowed to set ADCAL only when the ADC is disabled (ADCAL = 0, ADSTART = 0, ADSTP = 0, ADDIS = 0 and ADEN = 0).
         /// The software is allowed to update the calibration factor by writing ADC_CALFACT only when ADEN = 1 and ADSTART = 0 (ADC enabled and no conversion is ongoing).
         @ReadWrite(bits: 31..<32)
-        var adcal: ADCAL
+        public var adcal: ADCAL
     }
 
     /// ADC configuration register 1
     @Register(bitWidth: 32)
-    struct CFGR1 {
+    public struct CFGR1 {
         /// Direct memory access enable
         /// This bit is set and cleared by software to enable the generation of DMA requests. This allows the DMA controller to be used to manage automatically the converted data. For more details, refer to .
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 0..<1)
-        var dmaen: DMAEN
+        public var dmaen: DMAEN
 
         /// Direct memory access configuration
         /// This bit is set and cleared by software to select between two DMA modes of operation and is effective only when DMAEN = 1.
         /// For more details, refer to page 355
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 1..<2)
-        var dmacfg: DMACFG
+        public var dmacfg: DMACFG
 
         /// Scan sequence direction
         /// This bit is set and cleared by software to select the direction in which the channels is scanned in the sequence. It is effective only if CHSELMOD bit is cleared to 0.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 2..<3)
-        var scandir: SCANDIR
+        public var scandir: SCANDIR
 
         /// Data resolution
         /// These bits are written by software to select the resolution of the conversion.
         /// Note: The software is allowed to write these bits only when ADEN = 0.
         @ReadWrite(bits: 3..<5)
-        var res: RES
+        public var res: RES
 
         /// Data alignment
         /// This bit is set and cleared by software to select right or left alignment. Refer to Data alignment and resolution (oversampling disabled: OVSE = 0) on page 353
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 5..<6)
-        var align: ALIGN
+        public var align: ALIGN
 
         /// External trigger selection
         /// These bits select the external event used to trigger the start of conversion (refer to External triggers for details):
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 6..<9)
-        var extsel: EXTSEL
+        public var extsel: EXTSEL
 
         /// External trigger enable and polarity selection
         /// These bits are set and cleared by software to select the external trigger polarity and enable the trigger.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 10..<12)
-        var exten: EXTEN
+        public var exten: EXTEN
 
         /// Overrun management mode
         /// This bit is set and cleared by software and configure the way data overruns are managed.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 12..<13)
-        var ovrmod: OVRMOD
+        public var ovrmod: OVRMOD
 
         /// Single / continuous conversion mode
         /// This bit is set and cleared by software. If it is set, conversion takes place continuously until it is cleared.
         /// Note: It is not possible to have both discontinuous mode and continuous mode enabled: it is forbidden to set both bits DISCEN = 1 and CONT = 1.
         /// The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 13..<14)
-        var cont: CONT
+        public var cont: CONT
 
         /// Wait conversion mode
         /// This bit is set and cleared by software to enable/disable wait conversion mode..
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 14..<15)
-        var wait: WAIT
+        public var wait: WAIT
 
         /// Auto-off mode
         /// This bit is set and cleared by software to enable/disable auto-off mode..
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 15..<16)
-        var autoff: AUTOFF
+        public var autoff: AUTOFF
 
         /// Discontinuous mode
         /// This bit is set and cleared by software to enable/disable discontinuous mode.
         /// Note: It is not possible to have both discontinuous mode and continuous mode enabled: it is forbidden to set both bits DISCEN = 1 and CONT = 1.
         /// The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 16..<17)
-        var discen: DISCEN
+        public var discen: DISCEN
 
         /// Mode selection of the ADC_CHSELR register
         /// This bit is set and cleared by software to control the ADC_CHSELR feature:
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 21..<22)
-        var chselrmod: CHSELRMOD
+        public var chselrmod: CHSELRMOD
 
         /// Enable the watchdog on a single channel or on all channels
         /// This bit is set and cleared by software to enable the analog watchdog on the channel identified by the AWDCH[4:0] bits or on all the channels
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 22..<23)
-        var awd1sgl: AWD1SGL
+        public var awd1sgl: AWD1SGL
 
         /// Analog watchdog enable
         /// This bit is set and cleared by software.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 23..<24)
-        var awd1en: AWD1EN
+        public var awd1en: AWD1EN
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They select the input channel to be guarded by the analog watchdog.
@@ -347,435 +347,435 @@ extension ADC {
         /// Note: The channel selected by the AWDCH[4:0] bits must be also set into the CHSELR register.
         /// The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 26..<31)
-        var awd1ch: AWD1CH
+        public var awd1ch: AWD1CH
     }
 
     /// ADC configuration register 2
     @Register(bitWidth: 32)
-    struct CFGR2 {
+    public struct CFGR2 {
         /// Oversampler Enable
         /// This bit is set and cleared by software.
         /// Note: Software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 0..<1)
-        var ovse: OVSE
+        public var ovse: OVSE
 
         /// Oversampling ratio
         /// This bit filed defines the number of oversampling ratio.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 2..<5)
-        var ovsr: OVSR
+        public var ovsr: OVSR
 
         /// Oversampling shift
         /// This bit is set and cleared by software.
         /// Others: Reserved
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 5..<9)
-        var ovss: OVSS
+        public var ovss: OVSS
 
         /// Triggered Oversampling
         /// This bit is set and cleared by software.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 9..<10)
-        var tovs: TOVS
+        public var tovs: TOVS
 
         /// Low frequency trigger mode enable
         /// This bit is set and cleared by software.
         /// Note: The software is allowed to write this bit only when ADSTART bit is cleared to 0 (this ensures that no conversion is ongoing).
         @ReadWrite(bits: 29..<30)
-        var lftrig: LFTRIG
+        public var lftrig: LFTRIG
 
         /// ADC clock mode
         /// These bits are set and cleared by software to define how the analog ADC is clocked:
         /// In all synchronous clock modes, there is no jitter in the delay from a timer trigger to the start of a conversion.
         /// Note: The software is allowed to write these bits only when the ADC is disabled (ADCAL = 0, ADSTART = 0, ADSTP = 0, ADDIS = 0 and ADEN = 0).
         @ReadWrite(bits: 30..<32)
-        var ckmode: CKMODE
+        public var ckmode: CKMODE
     }
 
     /// ADC sampling time register
     @Register(bitWidth: 32)
-    struct SMPR {
+    public struct SMPR {
         /// Sampling time selection 1
         /// These bits are written by software to select the sampling time that applies to all channels.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 0..<3)
-        var smp1: SMP1
+        public var smp1: SMP1
 
         /// Sampling time selection 2
         /// These bits are written by software to select the sampling time that applies to all channels.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 4..<7)
-        var smp2: SMP2
+        public var smp2: SMP2
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 8..<9)
-        var smpsel0: SMPSEL0
+        public var smpsel0: SMPSEL0
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 9..<10)
-        var smpsel1: SMPSEL1
+        public var smpsel1: SMPSEL1
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 10..<11)
-        var smpsel2: SMPSEL2
+        public var smpsel2: SMPSEL2
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 11..<12)
-        var smpsel3: SMPSEL3
+        public var smpsel3: SMPSEL3
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 12..<13)
-        var smpsel4: SMPSEL4
+        public var smpsel4: SMPSEL4
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 13..<14)
-        var smpsel5: SMPSEL5
+        public var smpsel5: SMPSEL5
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 14..<15)
-        var smpsel6: SMPSEL6
+        public var smpsel6: SMPSEL6
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 15..<16)
-        var smpsel7: SMPSEL7
+        public var smpsel7: SMPSEL7
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 16..<17)
-        var smpsel8: SMPSEL8
+        public var smpsel8: SMPSEL8
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 17..<18)
-        var smpsel9: SMPSEL9
+        public var smpsel9: SMPSEL9
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 18..<19)
-        var smpsel10: SMPSEL10
+        public var smpsel10: SMPSEL10
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 19..<20)
-        var smpsel11: SMPSEL11
+        public var smpsel11: SMPSEL11
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 20..<21)
-        var smpsel12: SMPSEL12
+        public var smpsel12: SMPSEL12
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 21..<22)
-        var smpsel13: SMPSEL13
+        public var smpsel13: SMPSEL13
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 22..<23)
-        var smpsel14: SMPSEL14
+        public var smpsel14: SMPSEL14
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 23..<24)
-        var smpsel15: SMPSEL15
+        public var smpsel15: SMPSEL15
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 24..<25)
-        var smpsel16: SMPSEL16
+        public var smpsel16: SMPSEL16
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 25..<26)
-        var smpsel17: SMPSEL17
+        public var smpsel17: SMPSEL17
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 26..<27)
-        var smpsel18: SMPSEL18
+        public var smpsel18: SMPSEL18
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 27..<28)
-        var smpsel19: SMPSEL19
+        public var smpsel19: SMPSEL19
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 28..<29)
-        var smpsel20: SMPSEL20
+        public var smpsel20: SMPSEL20
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 29..<30)
-        var smpsel21: SMPSEL21
+        public var smpsel21: SMPSEL21
 
         /// Channel-x sampling time selection
         /// These bits are written by software to define which sampling time is used.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// Refer to for the maximum number of channels.
         @ReadWrite(bits: 30..<31)
-        var smpsel22: SMPSEL22
+        public var smpsel22: SMPSEL22
     }
 
     /// ADC watchdog threshold register
     @Register(bitWidth: 32)
-    struct AWD1TR {
+    public struct AWD1TR {
         /// Analog watchdog 1 lower threshold
         /// These bits are written by software to define the lower threshold for the analog watchdog.
         /// Refer to ADC_AWDxTR) on page 359.
         @ReadWrite(bits: 0..<12)
-        var lt1: LT1
+        public var lt1: LT1
 
         /// Analog watchdog 1 higher threshold
         /// These bits are written by software to define the higher threshold for the analog watchdog.
         /// Refer to ADC_AWDxTR) on page 359.
         @ReadWrite(bits: 16..<28)
-        var ht1: HT1
+        public var ht1: HT1
     }
 
     /// ADC watchdog threshold register
     @Register(bitWidth: 32)
-    struct AWD2TR {
+    public struct AWD2TR {
         /// Analog watchdog 2 lower threshold
         /// These bits are written by software to define the lower threshold for the analog watchdog.
         /// Refer to ADC_AWDxTR) on page 359.
         @ReadWrite(bits: 0..<12)
-        var lt2: LT2
+        public var lt2: LT2
 
         /// Analog watchdog 2 higher threshold
         /// These bits are written by software to define the higher threshold for the analog watchdog.
         /// Refer to ADC_AWDxTR) on page 359.
         @ReadWrite(bits: 16..<28)
-        var ht2: HT2
+        public var ht2: HT2
     }
 
     /// ADC channel selection register [alternate]
     @Register(bitWidth: 32)
-    struct CHSELR0 {
+    public struct CHSELR0 {
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 0..<1)
-        var chsel0: CHSEL0
+        public var chsel0: CHSEL0
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 1..<2)
-        var chsel1: CHSEL1
+        public var chsel1: CHSEL1
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 2..<3)
-        var chsel2: CHSEL2
+        public var chsel2: CHSEL2
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 3..<4)
-        var chsel3: CHSEL3
+        public var chsel3: CHSEL3
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 4..<5)
-        var chsel4: CHSEL4
+        public var chsel4: CHSEL4
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 5..<6)
-        var chsel5: CHSEL5
+        public var chsel5: CHSEL5
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 6..<7)
-        var chsel6: CHSEL6
+        public var chsel6: CHSEL6
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 7..<8)
-        var chsel7: CHSEL7
+        public var chsel7: CHSEL7
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 8..<9)
-        var chsel8: CHSEL8
+        public var chsel8: CHSEL8
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 9..<10)
-        var chsel9: CHSEL9
+        public var chsel9: CHSEL9
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 10..<11)
-        var chsel10: CHSEL10
+        public var chsel10: CHSEL10
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 11..<12)
-        var chsel11: CHSEL11
+        public var chsel11: CHSEL11
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 12..<13)
-        var chsel12: CHSEL12
+        public var chsel12: CHSEL12
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 13..<14)
-        var chsel13: CHSEL13
+        public var chsel13: CHSEL13
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 14..<15)
-        var chsel14: CHSEL14
+        public var chsel14: CHSEL14
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 15..<16)
-        var chsel15: CHSEL15
+        public var chsel15: CHSEL15
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 16..<17)
-        var chsel16: CHSEL16
+        public var chsel16: CHSEL16
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 17..<18)
-        var chsel17: CHSEL17
+        public var chsel17: CHSEL17
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 18..<19)
-        var chsel18: CHSEL18
+        public var chsel18: CHSEL18
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 19..<20)
-        var chsel19: CHSEL19
+        public var chsel19: CHSEL19
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 20..<21)
-        var chsel20: CHSEL20
+        public var chsel20: CHSEL20
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 21..<22)
-        var chsel21: CHSEL21
+        public var chsel21: CHSEL21
 
         /// Channel-x selection
         /// These bits are written by software and define which channels are part of the sequence of channels to be converted. Refer to for ADC inputs connected to external channels and internal sources.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         /// If CCRDY is not yet asserted after channel configuration (writing ADC_CHSELR register or changing CHSELRMOD or SCANDIR), the value written to this bit is ignored.
         @ReadWrite(bits: 22..<23)
-        var chsel22: CHSEL22
+        public var chsel22: CHSEL22
     }
 
     /// ADC channel selection register [alternate]
     @Register(bitWidth: 32)
-    struct CHSELR1 {
+    public struct CHSELR1 {
         /// 1st conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates end of the sequence.
         /// When 0b1111 (end of sequence) is programmed to the lower sequence channels, these bits are ignored.
         /// Refer to SQ8[3:0] for a definition of channel selection.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 0..<4)
-        var sq1: SQ1
+        public var sq1: SQ1
 
         /// 2nd conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates end of the sequence.
@@ -783,7 +783,7 @@ extension ADC {
         /// Refer to SQ8[3:0] for a definition of channel selection.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 4..<8)
-        var sq2: SQ2
+        public var sq2: SQ2
 
         /// 3rd conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates end of the sequence.
@@ -791,7 +791,7 @@ extension ADC {
         /// Refer to SQ8[3:0] for a definition of channel selection.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 8..<12)
-        var sq3: SQ3
+        public var sq3: SQ3
 
         /// 4th conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates end of the sequence.
@@ -799,7 +799,7 @@ extension ADC {
         /// Refer to SQ8[3:0] for a definition of channel selection.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 12..<16)
-        var sq4: SQ4
+        public var sq4: SQ4
 
         /// 5th conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates end of the sequence.
@@ -807,7 +807,7 @@ extension ADC {
         /// Refer to SQ8[3:0] for a definition of channel selection.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 16..<20)
-        var sq5: SQ5
+        public var sq5: SQ5
 
         /// 6th conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates end of the sequence.
@@ -815,7 +815,7 @@ extension ADC {
         /// Refer to SQ8[3:0] for a definition of channel selection.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 20..<24)
-        var sq6: SQ6
+        public var sq6: SQ6
 
         /// 7th conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates end of the sequence.
@@ -823,7 +823,7 @@ extension ADC {
         /// Refer to SQ8[3:0] for a definition of channel selection.
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 24..<28)
-        var sq7: SQ7
+        public var sq7: SQ7
 
         /// 8th conversion of the sequence
         /// These bits are programmed by software with the channel number (0...14) assigned to the 8th conversion of the sequence. 0b1111 indicates the end of the sequence.
@@ -831,322 +831,322 @@ extension ADC {
         /// ...
         /// Note: The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 28..<32)
-        var sq8: SQ8
+        public var sq8: SQ8
     }
 
     /// ADC watchdog threshold register
     @Register(bitWidth: 32)
-    struct AWD3TR {
+    public struct AWD3TR {
         /// Analog watchdog 3lower threshold
         /// These bits are written by software to define the lower threshold for the analog watchdog.
         /// Refer to ADC_AWDxTR) on page 359.
         @ReadWrite(bits: 0..<12)
-        var lt3: LT3
+        public var lt3: LT3
 
         /// Analog watchdog 3 higher threshold
         /// These bits are written by software to define the higher threshold for the analog watchdog.
         /// Refer to ADC_AWDxTR) on page 359.
         @ReadWrite(bits: 16..<28)
-        var ht3: HT3
+        public var ht3: HT3
     }
 
     /// ADC data register
     @Register(bitWidth: 32)
-    struct DR {
+    public struct DR {
         /// Converted data
         /// These bits are read-only. They contain the conversion result from the last converted channel. The data are left- or right-aligned as shown in OVSE = 0) on page 353.
         /// Just after a calibration is complete, DATA[6:0] contains the calibration factor.
         @ReadOnly(bits: 0..<16)
-        var data: DATA
+        public var data: DATA
     }
 
     /// ADC Analog Watchdog 2 Configuration register
     @Register(bitWidth: 32)
-    struct AWD2CR {
+    public struct AWD2CR {
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 0..<1)
-        var awd2ch0: AWD2CH0
+        public var awd2ch0: AWD2CH0
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 1..<2)
-        var awd2ch1: AWD2CH1
+        public var awd2ch1: AWD2CH1
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 2..<3)
-        var awd2ch2: AWD2CH2
+        public var awd2ch2: AWD2CH2
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 3..<4)
-        var awd2ch3: AWD2CH3
+        public var awd2ch3: AWD2CH3
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 4..<5)
-        var awd2ch4: AWD2CH4
+        public var awd2ch4: AWD2CH4
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 5..<6)
-        var awd2ch5: AWD2CH5
+        public var awd2ch5: AWD2CH5
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 6..<7)
-        var awd2ch6: AWD2CH6
+        public var awd2ch6: AWD2CH6
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 7..<8)
-        var awd2ch7: AWD2CH7
+        public var awd2ch7: AWD2CH7
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 8..<9)
-        var awd2ch8: AWD2CH8
+        public var awd2ch8: AWD2CH8
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 9..<10)
-        var awd2ch9: AWD2CH9
+        public var awd2ch9: AWD2CH9
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 10..<11)
-        var awd2ch10: AWD2CH10
+        public var awd2ch10: AWD2CH10
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 11..<12)
-        var awd2ch11: AWD2CH11
+        public var awd2ch11: AWD2CH11
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 12..<13)
-        var awd2ch12: AWD2CH12
+        public var awd2ch12: AWD2CH12
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 13..<14)
-        var awd2ch13: AWD2CH13
+        public var awd2ch13: AWD2CH13
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 14..<15)
-        var awd2ch14: AWD2CH14
+        public var awd2ch14: AWD2CH14
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 15..<16)
-        var awd2ch15: AWD2CH15
+        public var awd2ch15: AWD2CH15
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 16..<17)
-        var awd2ch16: AWD2CH16
+        public var awd2ch16: AWD2CH16
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 17..<18)
-        var awd2ch17: AWD2CH17
+        public var awd2ch17: AWD2CH17
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 18..<19)
-        var awd2ch18: AWD2CH18
+        public var awd2ch18: AWD2CH18
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 19..<20)
-        var awd2ch19: AWD2CH19
+        public var awd2ch19: AWD2CH19
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 20..<21)
-        var awd2ch20: AWD2CH20
+        public var awd2ch20: AWD2CH20
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 21..<22)
-        var awd2ch21: AWD2CH21
+        public var awd2ch21: AWD2CH21
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 2 (AWD2).
         /// Note: The channels selected through ADC_AWD2CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 22..<23)
-        var awd2ch22: AWD2CH22
+        public var awd2ch22: AWD2CH22
     }
 
     /// ADC Analog Watchdog 3 Configuration register
     @Register(bitWidth: 32)
-    struct AWD3CR {
+    public struct AWD3CR {
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 0..<1)
-        var awd3ch0: AWD3CH0
+        public var awd3ch0: AWD3CH0
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 1..<2)
-        var awd3ch1: AWD3CH1
+        public var awd3ch1: AWD3CH1
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 2..<3)
-        var awd3ch2: AWD3CH2
+        public var awd3ch2: AWD3CH2
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 3..<4)
-        var awd3ch3: AWD3CH3
+        public var awd3ch3: AWD3CH3
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 4..<5)
-        var awd3ch4: AWD3CH4
+        public var awd3ch4: AWD3CH4
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 5..<6)
-        var awd3ch5: AWD3CH5
+        public var awd3ch5: AWD3CH5
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 6..<7)
-        var awd3ch6: AWD3CH6
+        public var awd3ch6: AWD3CH6
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 7..<8)
-        var awd3ch7: AWD3CH7
+        public var awd3ch7: AWD3CH7
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 8..<9)
-        var awd3ch8: AWD3CH8
+        public var awd3ch8: AWD3CH8
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 9..<10)
-        var awd3ch9: AWD3CH9
+        public var awd3ch9: AWD3CH9
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 10..<11)
-        var awd3ch10: AWD3CH10
+        public var awd3ch10: AWD3CH10
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 11..<12)
-        var awd3ch11: AWD3CH11
+        public var awd3ch11: AWD3CH11
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 12..<13)
-        var awd3ch12: AWD3CH12
+        public var awd3ch12: AWD3CH12
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 13..<14)
-        var awd3ch13: AWD3CH13
+        public var awd3ch13: AWD3CH13
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 14..<15)
-        var awd3ch14: AWD3CH14
+        public var awd3ch14: AWD3CH14
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 15..<16)
-        var awd3ch15: AWD3CH15
+        public var awd3ch15: AWD3CH15
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 16..<17)
-        var awd3ch16: AWD3CH16
+        public var awd3ch16: AWD3CH16
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 17..<18)
-        var awd3ch17: AWD3CH17
+        public var awd3ch17: AWD3CH17
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 18..<19)
-        var awd3ch18: AWD3CH18
+        public var awd3ch18: AWD3CH18
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 19..<20)
-        var awd3ch19: AWD3CH19
+        public var awd3ch19: AWD3CH19
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 20..<21)
-        var awd3ch20: AWD3CH20
+        public var awd3ch20: AWD3CH20
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 21..<22)
-        var awd3ch21: AWD3CH21
+        public var awd3ch21: AWD3CH21
 
         /// Analog watchdog channel selection
         /// These bits are set and cleared by software. They enable and select the input channels to be guarded by analog watchdog 3 (AWD3).
         /// Note: The channels selected through ADC_AWD3CR must be also configured into the ADC_CHSELR registers. Refer to SQ8[3:0] for a definition of channel selection. The software is allowed to write this bit only when ADSTART=0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 22..<23)
-        var awd3ch22: AWD3CH22
+        public var awd3ch22: AWD3CH22
     }
 
     /// ADC Calibration factor
     @Register(bitWidth: 32)
-    struct CALFACT {
+    public struct CALFACT {
         /// Calibration factor
         /// These bits are written by hardware or by software.
         /// Once a calibration is complete, they are updated by hardware with the calibration factors.
@@ -1154,29 +1154,29 @@ extension ADC {
         /// Just after a calibration is complete, DATA[6:0] contains the calibration factor.
         /// Note: Software can write these bits only when ADEN=1 (ADC is enabled and no calibration is ongoing and no conversion is ongoing). Refer to SQ8[3:0] for a definition of channel selection.
         @ReadWrite(bits: 0..<7)
-        var calfact_field: CALFACT_FIELD
+        public var calfact_field: CALFACT_FIELD
     }
 
     /// ADC common configuration register
     @Register(bitWidth: 32)
-    struct CCR {
+    public struct CCR {
         /// ADC prescaler
         /// Set and cleared by software to select the frequency of the clock to the ADC.
         /// Other: Reserved
         /// Note: Software is allowed to write these bits only when the ADC is disabled (ADCAL = 0, ADSTART = 0, ADSTP = 0, ADDIS = 0 and ADEN = 0).
         @ReadWrite(bits: 18..<22)
-        var presc: PRESC
+        public var presc: PRESC
 
         /// VREFINT enable
         /// This bit is set and cleared by software to enable/disable the VREFINT.
         /// Note: Software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 22..<23)
-        var vrefen: VREFEN
+        public var vrefen: VREFEN
 
         /// Temperature sensor enable
         /// This bit is set and cleared by software to enable/disable the temperature sensor.
         /// Note: Software is allowed to write this bit only when ADSTART = 0 (which ensures that no conversion is ongoing).
         @ReadWrite(bits: 23..<24)
-        var tsen: TSEN
+        public var tsen: TSEN
     }
 }
