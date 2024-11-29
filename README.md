@@ -10,7 +10,7 @@ In particular, these demos are built for the [STM32C0116-DK](https://www.st.com/
 All of these examples can be built under macOS or Linux (including WSL2 in Windows) using a Swift 6.0.0 toolchain or later.
 They are made to work with the `arm-none-eabi` tools that are available for cross-compiling to ARM.
 
-NOTE: In order to build `*-mmio` projects in "debug" mode (`make CONFIGURATION=debug`) you will need to have
+NOTE: In order to build `mmio` projects in "debug" mode (`make CONFIGURATION=debug`) you will need to have
 a recent trunk snapshot which automatically enables whole module optimization for embedded projects.
 However, release mode builds (which are the default) should work fine with Swift 6.0 or later.
 
@@ -51,13 +51,20 @@ To get started, install the [Dev Containers](https://marketplace.visualstudio.co
 extension in Visual Studio Code. Open the root of this repo in VSCode, then choose to "Reopen in Dev Container"
 from the command palette or when prompted.
 
-## Demos
+## Simple Demo
 
-This repo contains the following demos:
+There is a single simple demo that shows how Swift can be used to talk to hardware with no
+dependencies on external libraries (other than the Swift toolchain).
 
-- [blink](./blink): An extremely simple demo that binks LED3 with no external dependencies.
-- [blink-mmio](./blink-mmio): A very simple demo that blinks LED3, employing swift-mmio and swift-cortex-m libraries.
-- [joystick-mmio](./joystick-mmio): Demo of using the joystick ADC input to blink LED3 at different rates depending on what direction the joystick is depressed.
+- [blink](./blink): An extremely simple demo that binks LED3.
+
+## MMIO Demos
+
+Most of the demos in this repo use swift-mmio for register access and the swift-cortex-m library for
+accessing features of the Cortex-M core.
+
+- [blink (MMIO)](./mmio/blink): A very simple demo that blinks LED3.
+- [joystick (MMIO)](./mmio/joystick): Demo of using the joystick ADC input to blink LED3 at different rates depending on what direction the joystick is depressed.
 
 Each of the demo projects has their own `Makefile` for compiling the project and linking it for the STM32C011.
 
