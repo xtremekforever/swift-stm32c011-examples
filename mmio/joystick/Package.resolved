@@ -1,5 +1,5 @@
 {
-  "originHash" : "3d8c83b6b34e36a8f27ab727dec28d8cec77dbff09f7cf7dc24e474862c0b345",
+  "originHash" : "eb1e29233fd68b7a116c1ee3518a61030f423576c391eaeb61f391f3309b8ec2",
   "pins" : [
     {
       "identity" : "swift-argument-parser",
@@ -16,7 +16,7 @@
       "location" : "https://github.com/xtremekforever/swift-cortex-m",
       "state" : {
         "branch" : "main",
-        "revision" : "32fbb1064bd61ec77abe1b852ce17655fefab2aa"
+        "revision" : "ffd58fd6196fd4e23960707a12a8947557980612"
       }
     },
     {
@@ -26,6 +26,15 @@
       "state" : {
         "branch" : "swift-embedded-examples",
         "revision" : "06d96ed4916739f2edafde87f3951b2d2a04df65"
+      }
+    },
+    {
+      "identity" : "swift-stm32c011",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/xtremekforever/swift-stm32c011",
+      "state" : {
+        "branch" : "main",
+        "revision" : "d942b0aecd3d77c85a8661babfb69e7dffe94df6"
       }
     },
     {

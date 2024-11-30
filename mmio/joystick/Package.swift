@@ -9,14 +9,14 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-mmio", branch: "swift-embedded-examples"),
-        .package(path: "../stm32c011"),
+        .package(url: "https://github.com/xtremekforever/swift-stm32c011", branch: "main"),
     ],
     targets: [
         .target(
             name: "Application",
             dependencies: [
                 .product(name: "MMIO", package: "swift-mmio"),
-                .product(name: "STM32C011", package: "stm32c011"),
+                .product(name: "STM32C011", package: "swift-stm32c011"),
             ],
             swiftSettings: [
                 .enableExperimentalFeature("Embedded")
