@@ -1,5 +1,5 @@
-import Common
 import CortexM
+import STM32C011
 
 @main
 struct Main {
