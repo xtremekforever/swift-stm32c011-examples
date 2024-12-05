@@ -21,7 +21,7 @@ struct Main {
 
             // Echo back
             putchar(byte)
-            
+
             // Send a "\n" if the byte is a "\r"
             if UInt8(byte) == UInt8(ascii: "\r") {
                 putchar(CInt(UInt8(ascii: "\n")))
