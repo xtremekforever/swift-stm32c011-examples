@@ -12,26 +12,19 @@ struct Main {
         board.configureLed()
         board.configureUsart(baud: 115200)
 
-        //print("Hello Embedded Swift")
+        print("Hello Embedded Swift\r")
 
         while true {
-
-            // Wait for input byte
-            usart2.waitRxBufferFull()
-
-            // Read byte
-            let byte = usart2.rx()
+            let byte = getchar()
 
             board.setLed(.on)
 
             // Echo back
-            usart2.tx(value: byte)
-            usart2.waitTxBufferEmpty()
-
+            putchar(byte)
+            
             // Send a "\n" if the byte is a "\r"
-            if byte == UInt8(ascii: "\r") {
-                usart2.tx(value: UInt8(ascii: "\n"))
-                usart2.waitTxBufferEmpty()
+            if UInt8(byte) == UInt8(ascii: "\r") {
+                putchar(CInt(UInt8(ascii: "\n")))
             }
 
             systick.delay(ticks: 5)

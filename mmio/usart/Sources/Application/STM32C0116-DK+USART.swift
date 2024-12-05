@@ -42,7 +42,8 @@ public func getchar() -> CInt {
     return CInt(byte)
 }
 
-public func putchar(_ value: CInt) -> CInt {
+@_cdecl("putchar")
+@discardableResult public func putchar(_ value: CInt) -> CInt {
     usart2.waitTxBufferEmpty()
     usart2.tx(value: UInt8(value))
     usart2.waitTxBufferEmpty()
