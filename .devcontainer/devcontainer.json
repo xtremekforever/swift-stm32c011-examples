@@ -1,6 +1,6 @@
 {
     "name": "swift-stm32c011-examples",
-    "image": "swiftlang/swift:nightly-jammy",
+    "image": "swiftlang/swift:nightly-6.1-jammy",
     "mounts": [
         "type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/vscode/.ssh",
         // Forward USB devices to be able to use st-flash
