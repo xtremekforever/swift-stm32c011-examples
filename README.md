@@ -3,7 +3,7 @@
 These are a couple of examples for the STM32C011 built using Swift for Embedded that is available in Swift 6.0 and later.
 In particular, these demos are built for the [STM32C0116-DK](https://www.st.com/en/evaluation-tools/stm32c0116-dk.html) which is a simple development kit that contains a few peripherals to play with, such as an LED, 5-way joystick, UART, and LCD connectors.
 
-![Illustration of the STM32C0116-DK](images/STM32C0116-DK.jpg "STM32C0116-DK")
+![Illustration of the STM32C0116-DK](images/STM32C0116-DK.png "STM32C0116-DK")
 
 ## Prerequisites
 

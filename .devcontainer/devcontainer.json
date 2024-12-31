@@ -1,6 +1,6 @@
 {
     "name": "swift-stm32c011-examples",
-    "image": "swiftlang/swift:nightly-6.1-jammy",
+    "image": "xtremekforever/swift-nightly-noble:6.1-snapshot-2024-12-13",
     "mounts": [
         "type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/vscode/.ssh",
         // Forward USB devices to be able to use st-flash
@@ -51,7 +51,7 @@
             ]
         }
     },
-    "postCreateCommand": "./scripts/install-dependencies-ubuntu.sh",
+    "postCreateCommand": "sudo apt-get update -y && sudo apt-get install -y make gcc-arm-none-eabi stlink-tools",
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
