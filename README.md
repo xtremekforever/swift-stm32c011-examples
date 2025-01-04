@@ -33,7 +33,7 @@ sudo apt install build-essential gcc-arm-none-eabi
 NOTE: If you are on Ubuntu 22.04 or older, you will need to grab the latest version of the stlink
 tools from [here](https://github.com/stlink-org/stlink/releases) for flashing to work properly.
 Older versions of the `stlink-tools` that are included in Ubuntu do not support the processor ID of
-the STM32C011. An easy way to do this is to use the `install-dependencies-ubuntu.sh` script in the
+the STM32C011. An easy way to do this is to use the `install-dependencies-ubuntu-22.04.sh` script in the
 [scripts](./scripts) directory.
 
 For RHEL/Fedora, install the following dependencies:
@@ -65,6 +65,7 @@ accessing features of the Cortex-M core.
 
 - [blink (MMIO)](./mmio/blink): A very simple demo that blinks LED3.
 - [joystick (MMIO)](./mmio/joystick): Demo of using the joystick ADC input to blink LED3 at different rates depending on what direction the joystick is depressed.
+- [usart (MMIO)](./mmio/usart): Demo of printing to USART2 (Grove connector on the DK) and echoing back characters received. LED3 is flashed on USART activity.
 
 Each of the demo projects has their own `Makefile` for compiling the project and linking it for the STM32C011.
 
