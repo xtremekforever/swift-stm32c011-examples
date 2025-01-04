@@ -1,6 +1,6 @@
 {
     "name": "swift-stm32c011-examples",
-    "image": "xtremekforever/swift-nightly-noble:6.1-snapshot-2024-12-13",
+    "image": "xtremekforever/swift-nightly-noble:6.1-snapshot-latest",
     "mounts": [
         "type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/vscode/.ssh",
         // Forward USB devices to be able to use st-flash
