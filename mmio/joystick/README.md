@@ -16,7 +16,13 @@ It should be noted that the `Up` direction on the STM32C0116-DK is towards the M
 
 ## Building
 
-Run the `make` command in this directory to create a release build:
+Resolve dependencies before building:
+
+```bash
+swift package resolve
+```
+
+Then, run the `make` command in this directory to create a release build:
 
 ```bash
 $ make

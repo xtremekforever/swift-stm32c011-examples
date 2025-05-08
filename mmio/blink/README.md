@@ -6,7 +6,13 @@ For this demo, the [swift-cortex-m](https://github.com/xtremekforever/swift-cort
 
 ## Building
 
-Run the `make` command in this directory to create a release build:
+Resolve dependencies before building:
+
+```bash
+swift package resolve
+```
+
+Then, run the `make` command in this directory to create a release build:
 
 ```bash
 $ make

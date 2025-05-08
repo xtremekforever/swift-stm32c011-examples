@@ -1,15 +1,15 @@
 {
     "name": "swift-stm32c011-examples",
-    "image": "xtremekforever/swift-nightly-noble:6.1-snapshot-latest",
+    "image": "swift:6.1-noble",
     "mounts": [
-        "type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/vscode/.ssh",
+        "type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/ubuntu/.ssh",
         // Forward USB devices to be able to use st-flash
         "type=bind,source=/dev/bus/usb,target=/dev/bus/usb"
     ],
     "features": {
         "ghcr.io/devcontainers/features/common-utils:2": {
             "installZsh": "false",
-            "username": "vscode",
+            "username": "ubuntu",
             "userUid": "1000",
             "userGid": "1000",
             "upgradePackages": "false"
@@ -39,7 +39,7 @@
             },
             // Add the IDs of extensions you want installed when the container is created.
             "extensions": [
-                "sswg.swift-lang",
+                "swiftlang.swift-vscode",
                 "dan-c-underwood.arm",
                 "ms-vscode.cpptools",
                 "chiehyu.vscode-astyle",
@@ -55,5 +55,5 @@
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
-    "remoteUser": "vscode"
+    "remoteUser": "ubuntu"
 }

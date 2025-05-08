@@ -22,7 +22,13 @@ If using the `HiLetgo CP2102` adapter, ensure that the [DIP switches are in the 
 
 ## Building
 
-Run the `make` command in this directory to create a release build:
+Resolve dependencies before building:
+
+```bash
+swift package resolve
+```
+
+Then, run the `make` command in this directory to create a release build:
 
 ```bash
 $ make

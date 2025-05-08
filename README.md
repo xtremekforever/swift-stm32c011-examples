@@ -7,12 +7,8 @@ In particular, these demos are built for the [STM32C0116-DK](https://www.st.com/
 
 ## Prerequisites
 
-All of these examples can be built under macOS or Linux (including WSL2 in Windows) using a Swift 6.0.0 toolchain or later.
+All of these examples can be built under macOS or Linux (including WSL2 in Windows) using a **Swift 6.1** toolchain or later.
 They are made to work with the `arm-none-eabi` tools that are available for cross-compiling to ARM.
-
-NOTE: In order to build `mmio` projects in "debug" mode (`make CONFIGURATION=debug`) you will need to have
-a recent trunk snapshot which automatically enables whole module optimization for embedded projects.
-However, release mode builds (which are the default) should work fine with Swift 6.0 or later.
 
 ### macOS
 
@@ -27,7 +23,7 @@ brew install gcc-arm-embedded stlink
 On a Ubuntu host (20.04-24.04), install the following dependencies:
 
 ```bash
-sudo apt install build-essential gcc-arm-none-eabi
+sudo apt install build-essential gcc-arm-none-eabi stlink-tools
 ```
 
 NOTE: If you are on Ubuntu 22.04 or older, you will need to grab the latest version of the stlink
