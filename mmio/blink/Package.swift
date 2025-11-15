@@ -10,7 +10,7 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/apple/swift-mmio", from: "0.1.1"),
         .package(
-            url: "https://github.com/xtremekforever/swift-stm32c011", branch: "feature/update-mmio"
+            url: "https://github.com/xtremekforever/swift-stm32c011", branch: "main"
         ),
     ],
     targets: [

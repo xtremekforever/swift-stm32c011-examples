@@ -1,5 +1,5 @@
 {
-  "originHash" : "2827a5fd43d48370df0999706fba73b513bcce58c525f80d69f120e47d958781",
+  "originHash" : "f87fe1c4547a11162b9e2b43588ba7806eae6e2979e1937c4447a62723a37ddd",
   "pins" : [
     {
       "identity" : "swift-argument-parser",
@@ -33,8 +33,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/xtremekforever/swift-stm32c011",
       "state" : {
-        "branch" : "feature/update-mmio",
-        "revision" : "9efcbc5599a4c34472b45ecbe036c9cfd6458701"
+        "branch" : "main",
+        "revision" : "9a94aaf2d11a0379d3374acc351e91bcc253d4de"
       }
     },
     {
