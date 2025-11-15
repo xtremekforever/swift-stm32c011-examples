@@ -67,7 +67,9 @@ Each of the demo projects has their own `Makefile` for compiling the project and
 
 ## Scripts
 
-There are also some [scripts](./scripts) that include the needed support files and documentation for generating MMIO register blocks using the provided SVD file. This is useful for others wanting to take this demos repo and expand on it for their own projects.
+The `Scripts` sub-directory contains the following scripts to help with using this project:
+
+- `install-dependencies-ubuntu-22.04.sh`: Install the needed packages and the latest `stlink` for Ubuntu 22.04.
 
 ## Flashing
 
