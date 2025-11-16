@@ -1,6 +1,6 @@
 {
     "name": "swift-stm32c011-examples",
-    "image": "swift:6.1-noble",
+    "image": "swift:6.2-noble",
     "mounts": [
         "type=bind,source=/home/${localEnv:USER}/.ssh,target=/home/ubuntu/.ssh",
         // Forward USB devices to be able to use st-flash
