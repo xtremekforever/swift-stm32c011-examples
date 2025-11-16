@@ -56,14 +56,16 @@ dependencies on external libraries (other than the Swift toolchain).
 
 ## MMIO Demos
 
-Most of the demos in this repo use swift-mmio for register access and the swift-cortex-m library for
-accessing features of the Cortex-M core.
+All of the demos that use swift-mmio for register access are found under the `mmio` subdirectory:
 
 - [blink (MMIO)](./mmio/blink): A very simple demo that blinks LED3.
 - [joystick (MMIO)](./mmio/joystick): Demo of using the joystick ADC input to blink LED3 at different rates depending on what direction the joystick is depressed.
 - [usart (MMIO)](./mmio/usart): Demo of printing to USART2 (Grove connector on the DK) and echoing back characters received. LED3 is flashed on USART activity.
 
-Each of the demo projects has their own `Makefile` for compiling the project and linking it for the STM32C011.
+Each of the demo projects has a `Makefile` for compiling the project and linking it.
+
+> [!NOTE]
+> These projects all depend on the [swift-stm32c011](https://github.com/xtremekforever/swift-stm32c011) library for common functionality on the STM32C011. This library also contains and uses the patched SVD file for the STM32C011 to generate its register definitions using the SVD2Swift tool that is part of the MMIO library.
 
 ## Scripts
 
