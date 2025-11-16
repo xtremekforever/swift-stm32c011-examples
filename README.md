@@ -41,7 +41,7 @@ sudo dnf install make arm-none-eabi-gcc-cs arm-none-eabi-newlib stlink
 ### Dev Container
 
 Another option is to use the included .devcontainer to build the various projects. This is recommended
-for the fastest setup and works in Windows, macOS, and Linux. Also, the devcontainer uses the nightly version of Swift, which works with all the latest Swift for Embedded features.
+for the fastest setup and works in Windows, macOS, and Linux.
 
 To get started, install the [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 extension in Visual Studio Code. Open the root of this repo in VSCode, then choose to "Reopen in Dev Container"
@@ -56,18 +56,16 @@ dependencies on external libraries (other than the Swift toolchain).
 
 ## MMIO Demos
 
-Most of the demos in this repo use swift-mmio for register access and the swift-cortex-m library for
-accessing features of the Cortex-M core.
+All of the demos that use swift-mmio for register access are found under the `mmio` subdirectory:
 
 - [blink (MMIO)](./mmio/blink): A very simple demo that blinks LED3.
 - [joystick (MMIO)](./mmio/joystick): Demo of using the joystick ADC input to blink LED3 at different rates depending on what direction the joystick is depressed.
 - [usart (MMIO)](./mmio/usart): Demo of printing to USART2 (Grove connector on the DK) and echoing back characters received. LED3 is flashed on USART activity.
 
-Each of the demo projects has their own `Makefile` for compiling the project and linking it for the STM32C011.
+Each of the demo projects has a `Makefile` for compiling the project and linking it.
 
-## Scripts
-
-There are also some [scripts](./scripts) that include the needed support files and documentation for generating MMIO register blocks using the provided SVD file. This is useful for others wanting to take this demos repo and expand on it for their own projects.
+> [!NOTE]
+> These projects all depend on the [swift-stm32c011](https://github.com/xtremekforever/swift-stm32c011) library for common functionality on the STM32C011. This library also contains and uses the patched SVD file for the STM32C011 to generate its register definitions using the SVD2Swift tool that is part of the MMIO library.
 
 ## Flashing
 

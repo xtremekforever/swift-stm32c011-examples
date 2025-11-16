@@ -1,6 +1,5 @@
 .build
 .directory
 
-# scripts
-output/
-swift-mmio
+# Swiftly
+.swift-version
